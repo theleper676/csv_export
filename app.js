@@ -14,26 +14,19 @@ CSVToJSON().fromFile("./catalog_products.csv").then(source =>{
 
         //decode uti for invalid chaecters 
         source[i].collection = unidecode(source[i].collection);
+        source[i].additionalInfoDescription1 = unidecode(source[i].additionalInfoDescription1);
+        source[i].additionalInfoDescription2 = unidecode(source[i].additionalInfoDescription2);
      }
 
      var productDescription3 = source[0].productOptionDescription3;
      var splitProductDescrption = productDescription3.split(';');
-     console.log(splitProductDescrption.length);
      if(splitProductDescrption.length >=30){
-         splitProductDescrption.length - 1;
          console.log(splitProductDescrption.length);
      }
 
-     var jsonData = JSON.stringify(source);
-     FileSystem.writeFile('./json_output.json',jsonData, function(err){
-         if(err){
-             console.log(err);
-         }
-     }
      
      
-     );
-     const csv = JSONToCSV(source);
+     const csv = JSONToCSV(source,{excelBOM : true});
      FileSystem.writeFileSync("./csv_output.csv", csv);
     }
     )
