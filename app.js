@@ -10,12 +10,12 @@ CSVToJSON().fromFile("./catalog_products.csv").then(source => {
     source.forEach(sourceJson => {
 
         sourceJson.description = stripHtml(sourceJson.description);
-        sourceJson.description = JSON.stringify(sourceJson.description);
+        //sourceJson.description = JSON.stringify(sourceJson.description);
         sourceJson.description = unidecode(sourceJson.description);
         
 
     });
-    const csv = JSONToCSV(source,);
+    const csv = JSONToCSV(source);
     FileSystem.writeFileSync("./csv_output.csv", csv);
 }
 )
