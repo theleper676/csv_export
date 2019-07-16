@@ -12,7 +12,7 @@ CSVToJSON().fromFile("./catalog_products.csv").then(source => {
         sourceJson.description = stripHtml(sourceJson.description);
         sourceJson.description = JSON.stringify(sourceJson.description);
         sourceJson.description = unidecode(sourceJson.description);
-
+        
 
     });
     const csv = JSONToCSV(source,);
