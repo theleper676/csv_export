@@ -6,21 +6,31 @@ const stripHtml = require("string-strip-html");
 const papaparse = require('papaparse');
 
 
-
 CSVToJSON().fromFile("./catalog_products.csv").then(source => {
 
     source.forEach(sourceJson => {
 
-        sourceJson.description = stripHtml(sourceJson.description);
-        //sourceJson.description = JSON.stringify(sourceJson.description);
-        sourceJson.description = unidecode(sourceJson.description);
-        sourceJson.handleId = sourceJson.handleId.replace(/\"/g, "");
-        sourceJson.fieldType = sourceJson.fieldType.replace(/\"/g, "");
-
+            StripHtml(sourceJson);
+            Unidecode(sourceJson);
+            DeleteHandleIDQuotes(sourceJson);
         
-
+        sourceJson.fieldType = sourceJson.fieldType.replace(/\"/g, "");
     });
-    //const csv = JSONToCSV(source);
+
+    //Stip any HTML tags from description 
+    function StripHtml (sourceJson){
+        sourceJson.description = stripHtml(sourceJson.description);
+    }
+
+    //Unidcode Description 
+    function Unidecode (sourceJson){
+        sourceJson.description = unidecode(sourceJson.description);
+    };
+    //Delete Handle ID Quotes
+    function DeleteHandleIDQuotes (sourceJson){
+        sourceJson.handleId = sourceJson.handleId.replace(/\"/g, "");
+    };
+
     const csv = papaparse.unparse(source,{escapeChar: '"',quotes:false,quoteChar: '"'});
     FileSystem.writeFileSync("./csv_output.csv", csv);
 }
