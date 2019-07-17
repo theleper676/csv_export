@@ -6,6 +6,9 @@ const stripHtml = require("string-strip-html");
 const papaparse = require('papaparse');
 
 
+
+//CSVToJSON().fromFile("./catalog_products.csv").then
+
 CSVToJSON().fromFile("./catalog_products.csv").then(source => {
 
     source.forEach(sourceJson => {
