@@ -1,5 +1,4 @@
 const CSVToJSON = require('csvtojson');
-const JSONToCSV = require('json2csv').parse;
 const FileSystem = require('fs');
 const unidecode = require('unidecode');
 const stripHtml = require("string-strip-html");
@@ -25,6 +24,7 @@ CSVToJSON({delimiter:'auto'}).fromFile("./catalog_products.csv").then(source => 
             StripHtml(sourceJson);
             Unidecode(sourceJson);
             DeleteHandleIDQuotes(sourceJson);
+            URIencoding(sourceJson);
         
         sourceJson.fieldType = sourceJson.fieldType.replace(/\"/g, "");
     });
@@ -45,6 +45,10 @@ CSVToJSON({delimiter:'auto'}).fromFile("./catalog_products.csv").then(source => 
     //Delete Handle ID Quotes
     function DeleteHandleIDQuotes (sourceJson){
         sourceJson.handleId = sourceJson.handleId.replace(/\"/g, "");
+    };
+
+    function URIencoding (sourceJson){
+        sourceJson.productImageUrl = encodeURI(sourceJson.productImageUrl);
     };
 
     const csv = papaparse.unparse(source,{escapeChar: '"',quotes:false,quoteChar: '"'});
