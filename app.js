@@ -9,9 +9,18 @@ const papaparse = require('papaparse');
 
 //CSVToJSON().fromFile("./catalog_products.csv").then
 
-CSVToJSON().fromFile("./catalog_products.csv").then(source => {
+CSVToJSON({delimiter:'auto'}).fromFile("./catalog_products.csv").then(source => {
 
     source.forEach(sourceJson => {
+
+            if(sourceJson.handleId.length == 0){
+                console.log('HnadleId is null');
+                return;
+            }
+            else if(sourceJson.fieldType.length == 0){
+                console.log('fieldType is null');
+                return;
+            }
 
             StripHtml(sourceJson);
             Unidecode(sourceJson);
@@ -25,9 +34,13 @@ CSVToJSON().fromFile("./catalog_products.csv").then(source => {
         sourceJson.description = stripHtml(sourceJson.description);
     }
 
-    //Unidcode Description 
+    //Unidcode Description and name
     function Unidecode (sourceJson){
         sourceJson.description = unidecode(sourceJson.description);
+       //sourceJson.name = unidecode(sourceJson.name);
+        sourceJson.collection = unidecode(sourceJson.collection);
+        sourceJson.additionalInfoTitle1 = unidecode(sourceJson.additionalInfoTitle1);
+        sourceJson.additionalInfoDescription1 = unidecode(sourceJson.additionalInfoDescription1);
     };
     //Delete Handle ID Quotes
     function DeleteHandleIDQuotes (sourceJson){
