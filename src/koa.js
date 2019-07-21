@@ -1,5 +1,7 @@
 const helmet = require('koa-helmet');
-const bodyParser = require('koa-bodyparser');
+// const bodyParser = require('koa-bodyparser');
+const body = require('koa-body');
+const multer = require('koa-multer');
 const Koa = require('koa');
 const {
   errorHandlerMiddleware
@@ -13,7 +15,10 @@ module.exports = () => {
 
     app.use(errorHandlerMiddleware());
     app.use(helmet());
-    app.use(bodyParser());
+    app.use(body({
+      multipart: true
+    }));
+    // app.use(multer);
 
     return app;
   }
