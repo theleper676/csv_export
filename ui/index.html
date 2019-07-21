@@ -1,0 +1,37 @@
+<html>
+
+    <script language="javascript">
+        const options = {
+            stripHtml: '',
+            unidecode: '',
+            deleteHandleIdQuotes: '',
+            checkIncludeBlankSpacesForUrl: ''
+        }
+    function toggleChecked(e){
+        const isChecked = e.checked;
+        if (isChecked){
+            options[e.name] = e.name;
+
+        } else {
+            options[e.name] = '';
+        }
+    }
+    function submitForm(){
+        const options1 = Object.keys(options).map(o => options[o] === '' ? '' : o)
+        return options1.join(',');
+
+    }
+    
+    </script>
+    <body>
+        <form onsubmit="return submitForm()" method="POST" action="http://localhost:2021/csv/" enctype=multipart/form-data>
+            <input type="file" name="file" id="file" File><br>
+        <input type="checkbox" name="stripHtml" value="stripHtml" onchange="toggleChecked(this)"> Stripe HTML<br>
+        <input type="checkbox" name="unidecode" value="unidecode" onchange="toggleChecked(this)"> Unidecode<br>
+        <input type="checkbox" name="deleteHandleIdQuotes" value="deleteHandleIdQuotes" onchange="toggleChecked(this)"> Delete Unhandled Id Quotes<br>
+        <input type="checkbox" name="checkIncludeBlankSpacesForUrl" value="checkIncludeBlankSpacesForUrl" onchange="toggleChecked(this)"> Check Include Blank Spaces For Url<br>
+        <br>
+        <input type="submit">Upload</input>
+    </form>
+    </body>
+</html>

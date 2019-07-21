@@ -9,6 +9,8 @@ const {
     version
 } = require('./package.json');
 
+
+
 (async () => {
     try {
         global.log = await logger(config.get('apiName'), version);
