@@ -54,11 +54,14 @@ const mapping = {
 
 
 const parseCSV = async ctx => {
-    const payload = ctx.request.body;
+    const {
+        data
+    } = ctx.request.body;
+    const input = ctx.request.files.file;
     let sourceJson = await CSVToJSON({
         delimiter: 'auto'
-    }).fromFile("./catalog_products.csv")
-    payload.map(f => sourceJson.map(r => mapping[f](r)))
+    }).fromFile(input.path)
+    data.split(',').map(f => sourceJson.map(r => mapping[f](r)))
     ctx.set('Content-disposition', `attachment; filename=output.csv`);
     ctx.statusCode = 200;
     ctx.body = Buffer.from(toCsv(sourceJson));
