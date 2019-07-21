@@ -4,7 +4,7 @@ const {
 const config = require('config');
 const logger = require('./src/utils/logger');
 const createServer = require('./src/koa');
-// const initRoutes = require('./lib/routes');
+const initRoutes = require('./src/routes');
 const {
     version
 } = require('./package.json');
@@ -15,7 +15,7 @@ const {
         global.log.info(`Starting up server on environment ${config.util.getEnv('NODE_ENV')}`);
         const app = createServer();
 
-        // initRoutes(app);
+        initRoutes(app);
 
         const listen = promisify(app.listen).bind(app);
         await listen(config.get('port'));

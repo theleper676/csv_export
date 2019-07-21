@@ -1,13 +1,10 @@
 const Router = require('koa-router');
-const v1Routes = require('./v1');
-
+const handler = require('./parseCsv')
 module.exports = app => {
-  const baseRouter = new Router();
-  baseRouter.get('/health_check', ctx => {
-    ctx.body = { result: 'pong' };
+  const baseRouter = new Router({
+    prefix: '/csv'
   });
-
-  baseRouter.use(v1Routes());
+  baseRouter.post('/', handler)
   app.use(baseRouter.routes());
   app.use(baseRouter.allowedMethods());
 };
