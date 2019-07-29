@@ -17,6 +17,15 @@ const Unidecode = sourceJson => ({
     additionalInfoDescription1: unidecode(sourceJson.additionalInfoDescription1)
 })
 
+const CheckHandleId = sourceJson =>{
+    if (sourceJson.handleId == 0){
+        console.log(sourceJson.name + ' is null')
+    }
+    if(sourceJson.fieldType != 'Product' || 'Variant'){
+        console.log(sourceJson.name + ' is not a valid Product or Variant')
+    }
+}
+
 
 //Delete Handle ID Quotes
 const DeleteHandleIDQuotes = sourceJson => ({
@@ -25,6 +34,7 @@ const DeleteHandleIDQuotes = sourceJson => ({
 })
 
 //check if image url has undecoded spaces and decode back. 
+
 const CheckIfIncludesSpaces = sourceJson => Object.assign(sourceJson,{
     productImageUrl: encodeURI(sourceJson.productImageUrl)
 })
@@ -40,7 +50,8 @@ const mapping = {
     stripHtml: StripHtml,
     unidecode: Unidecode,
     deleteHandleIdQuotes: DeleteHandleIDQuotes,
-    checkIncludeBlankSpacesForUrl: CheckIfIncludesSpaces
+    checkIncludeBlankSpacesForUrl: CheckIfIncludesSpaces,
+    CheckHandleId: CheckHandleId
 }
 
 
