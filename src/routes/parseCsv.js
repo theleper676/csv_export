@@ -34,17 +34,10 @@ const DeleteHandleIDQuotes = sourceJson => ({
 })
 
 //check if image url has undecoded spaces and decode back. 
-const CheckIfIncludesSpaces = sourceJson => {
-    let sourceJson2 = {
-        ...sourceJson
-    };
-    if (sourceJson.productImageUrl.includes('%20')) {
-        Object.assign(sourceJson2, {
-            productImageUrl: encodeURI(sourceJson.productImageUrl)
-        })
-    }
-    return sourceJson2;
-}
+
+const CheckIfIncludesSpaces = sourceJson => Object.assign(sourceJson,{
+    productImageUrl: encodeURI(sourceJson.productImageUrl)
+})
 
 const toCsv = sourceJson =>
     papaparse.unparse(sourceJson, {
